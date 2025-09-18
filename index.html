@@ -1,13 +1,320 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>My AI490 Site</title>
-    </head>
-    <body>
-        <h1>Hello from my first webpage!</h1>
-        <p>This page will later host my coursework.</p>
-    </body>
-    </html>
-t
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="description" content="This is my website. I will put stuff here later." />
+    <meta property="og:title" content="This Is My Website" />
+    <meta property="og:description" content="I will put stuff here later." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b0f14" />
+    <title>This Is My Website</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+      :root {
+        --bg: #0b0f14;
+        --bg-alt: #0e131b;
+        --text: #e6f1ff;
+        --muted: #9fb3c8;
+        --primary: #ffd400; /* Turbo yellow */
+        --cyan: #00e5ff;
+        --pink: #ff2bd6;
+        --card: #111826;
+        --border: #1b2636;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        --radius: 14px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(1200px 800px at 70% -10%, rgba(0,229,255,0.12), transparent 60%),
+                    radial-gradient(800px 600px at -10% 110%, rgba(255,42,214,0.10), transparent 60%),
+                    var(--bg);
+        background-attachment: fixed;
+        line-height: 1.6;
+      }
+
+      /* Decorative grid + speed lines */
+      body::before {
+        content: "";
+        position: fixed; inset: 0;
+        background:
+          linear-gradient(transparent 0 95%, rgba(255,255,255,0.04) 96%, transparent 100%) 0 0/100% 42px,
+          linear-gradient(90deg, transparent 0 95%, rgba(255,255,255,0.04) 96%, transparent 100%) 0 0/42px 100%;
+        pointer-events: none;
+        mask: linear-gradient(#000, transparent 70%);
+      }
+      .speedlines {
+        position: fixed; inset: -40vh 0 auto 0; height: 40vh; z-index: -1;
+        background: repeating-linear-gradient(
+          -12deg,
+          rgba(255, 212, 0, 0.0) 0 42px,
+          rgba(255, 212, 0, 0.08) 42px 46px,
+          rgba(0, 229, 255, 0.10) 46px 50px
+        );
+        filter: blur(0.6px) saturate(120%);
+        animation: rush 12s linear infinite;
+      }
+      @keyframes rush {
+        from { transform: translateY(-20%) translateX(0); }
+        to   { transform: translateY(20%) translateX(-10%); }
+      }
+
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(1200px, 92%); margin-inline: auto; }
+
+      /* Header */
+      header {
+        position: sticky; top: 0; z-index: 100;
+        backdrop-filter: saturate(140%) blur(8px);
+        background: linear-gradient(180deg, rgba(11,15,20,0.85), rgba(11,15,20,0.65));
+        border-bottom: 1px solid var(--border);
+      }
+      .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+      .brand {
+        display: flex; align-items: baseline; gap: 10px;
+        font-family: Orbitron, Inter, sans-serif;
+        letter-spacing: 0.6px;
+      }
+      .brand .tm { font-weight: 800; font-size: 1.2rem; }
+      .brand .turbo {
+        font-weight: 800; font-size: 1.2rem; padding: 2px 8px; border-radius: 6px;
+        background: linear-gradient(135deg, var(--primary), var(--cyan)); color: #141414;
+        box-shadow: 0 0 0 2px #141414 inset;
+      }
+      nav ul { display: flex; gap: 18px; margin: 0; padding: 0; list-style: none; }
+      nav a { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
+      nav a:hover, nav a:focus-visible { color: var(--text); }
+
+      /* Hero */
+      .hero { position: relative; padding: 72px 0 36px; }
+      .hero .wrap { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: center; }
+      .eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+      h1 { font-family: Orbitron, Inter, sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; margin: 8px 0 14px; }
+      .accent { background: linear-gradient(135deg, var(--primary), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .lead { color: #c8d6ea; font-size: clamp(1rem, 1.8vw, 1.15rem); max-width: 52ch; }
+
+      .cta { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+      .btn { --bgc: linear-gradient(135deg, var(--primary), var(--cyan));
+        display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 999px;
+        font-weight: 700; letter-spacing: 0.3px; border: 1px solid var(--border);
+        background: #111826; color: var(--text); box-shadow: var(--shadow);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+      .btn.primary { background: var(--bgc); color: #101318; border-color: rgba(255,255,255,0.12); }
+      .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,0.5); }
+      .btn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+
+      .showcase {
+        position: relative; border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(0,229,255,0.08), rgba(255,212,0,0.06));
+        border: 1px solid var(--border);
+        min-height: 260px; padding: 18px; overflow: hidden;
+      }
+      .showcase::after {
+        content: "Turbo"; position: absolute; right: -10px; bottom: -30px;
+        font-family: Orbitron, Inter, sans-serif; font-weight: 800; font-size: 9rem; opacity: 0.04;
+        letter-spacing: -2px; pointer-events: none; color: var(--text);
+      }
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+      .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+      .stat .num { font-family: Orbitron, Inter, sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+      .stat .label { color: var(--muted); font-size: 0.85rem; }
+
+      /* Sections */
+      section { padding: 28px 0; }
+      .section-title { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+      .section-title h2 { font-family: Orbitron, Inter, sans-serif; font-size: 1.6rem; margin: 0; }
+      .section-title p { margin: 0; color: var(--muted); }
+
+      .grid { display: grid; gap: 16px; }
+      .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+      .card {
+        background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; box-shadow: var(--shadow);
+        transition: transform 160ms ease, border-color 160ms ease;
+      }
+      .card:hover { transform: translateY(-3px); border-color: rgba(255,212,0,0.45); }
+      .card h3 { margin: 0 0 8px; font-family: Orbitron, Inter, sans-serif; font-size: 1.1rem; }
+      .card p { margin: 0; color: var(--muted); }
+
+      .media {
+        position: relative; padding-top: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #0c121b;
+      }
+      .media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .media .placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+
+      /* Footer */
+      footer { border-top: 1px solid var(--border); margin-top: 36px; padding: 24px 0 40px; color: var(--muted); }
+      .socials { display: flex; gap: 12px; flex-wrap: wrap; }
+      .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: #101722; }
+      .chip svg { width: 16px; height: 16px; }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero .wrap { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: repeat(2, 1fr); }
+        .grid.cols-3 { grid-template-columns: 1fr; }
+        .grid.cols-2 { grid-template-columns: 1fr; }
+        nav ul { overflow-x: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="speedlines" aria-hidden="true"></div>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#" aria-label="Home">
+          <span class="tm">My</span>
+          <span class="turbo">WEBSITE</span>
+        </a>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#features">Stuff</a></li>
+            <li><a href="#media">More Stuff</a></li>
+            <li><a href="#things">Later</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container wrap">
+          <div>
+            <div class="eyebrow">just a placeholder</div>
+            <h1>This is my <span class="accent">website</span></h1>
+            <p class="lead">I will put stuff here later. For now, this is sample text to fill space and show the design.</p>
+            <div class="cta">
+              <a class="btn primary" href="#">Read More</a>
+              <a class="btn" href="#">
+                <span class="dot" aria-hidden="true"></span> Maybe Later
+              </a>
+            </div>
+            <div class="stats" role="list" aria-label="Game highlights">
+              <div class="stat" role="listitem"><div class="num">TBD</div><div class="label">Coming soon</div></div>
+              <div class="stat" role="listitem"><div class="num">123</div><div class="label">Placeholders</div></div>
+              <div class="stat" role="listitem"><div class="num">Soon</div><div class="label">More stuff</div></div>
+              <div class="stat" role="listitem"><div class="num">Later</div><div class="label">Updates</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="showcase" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <div class="section-title">
+            <h2>Stuff Coming Soon</h2>
+            <p>This is my website. I will put stuff here later.</p>
+          </div>
+          <div class="grid cols-3">
+            <article class="card">
+              <h3>Content Placeholder</h3>
+              <p>This is my website. More text will go here later.</p>
+            </article>
+            <article class="card">
+              <h3>Another Card</h3>
+              <p>I will put stuff here later. Just testing layout.</p>
+            </article>
+            <article class="card">
+              <h3>More Stuff</h3>
+              <p>Random placeholder content. More details coming soon.</p>
+            </article>
+            <article class="card">
+              <h3>Even More</h3>
+              <p>This is my website. I will add things here later.</p>
+            </article>
+            <article class="card">
+              <h3>Placeholders</h3>
+              <p>I will put stuff here later. Thanks for visiting.</p>
+            </article>
+            <article class="card">
+              <h3>Final Card</h3>
+              <p>Just some random text to make it look full.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="media">
+        <div class="container">
+          <div class="section-title">
+            <h2>Media Placeholder</h2>
+            <p>I will put stuff here later.</p>
+          </div>
+          <div class="grid cols-2">
+            <div class="media">
+              <div class="placeholder">
+                <span>This is my website — video goes here later</span>
+              </div>
+              <!-- <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Placeholder video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+            </div>
+            <article class="card">
+              <h3>About This Site</h3>
+              <p>This is my website. I will put stuff here later.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="things">
+        <div class="container">
+          <div class="section-title">
+            <h2>More Stuff</h2>
+            <p>This page is under construction.</p>
+          </div>
+          <div class="grid cols-3">
+            <article class="card">
+              <h3>This is my website</h3>
+              <p>I will put stuff here later.</p>
+            </article>
+            <article class="card">
+              <h3>Random Item</h3>
+              <p>Just random content to fill space.</p>
+            </article>
+            <article class="card">
+              <h3>Another Placeholder</h3>
+              <p>More details will appear here later.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+        <div>
+          <strong style="font-family: Orbitron, Inter, sans-serif;">This Is My Website</strong>
+          <div style="font-size:0.9rem; color:var(--muted);">I will put stuff here later.</div>
+        </div>
+        <div class="socials" aria-label="Social links">
+          <a class="chip" href="#" aria-label="Link A">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>
+            <span>Link A</span>
+          </a>
+          <a class="chip" href="#" aria-label="Link B">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"></rect></svg>
+            <span>Link B</span>
+          </a>
+          <a class="chip" href="#" aria-label="Link C">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4l8 8-8 8-8-8 8-8Z"></path></svg>
+            <span>Link C</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+  </html>
